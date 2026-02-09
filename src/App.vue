@@ -1,17 +1,27 @@
 <script setup lang="ts">
 import HeaderNavigation from "./components/HeaderNavigation.vue";
 import Buscador from "./components/Buscador.vue";
+import ComponenteResumen from "./components/ComponenteResumen.vue";
+import TacometroCard from "./components/TacometroCard.vue";
 
 </script>
 
 <template>
   <div class="app-container">
-    <HeaderNavigation />
+    <HeaderNavigation  />
 
     <main class="content">
       <Buscador />
       <router-view />
     </main>
+    
+    <ComponenteResumen :detractores="20" :pasivos="30" :promotores="40" />
+    <TacometroCard
+        :percentage="55"
+        :clients="300"
+        :trendValue="0.2"
+    />
+
   </div>
 </template>
 

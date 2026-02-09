@@ -92,7 +92,6 @@ const emit = defineEmits<{ (e: 'back'): void }>();
 
 .header-title {
 
-  font-family: 'Inter', sans-serif;
 
   font-size: 1.25rem;
 
