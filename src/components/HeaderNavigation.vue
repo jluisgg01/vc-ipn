@@ -36,7 +36,7 @@ const emit = defineEmits<{ (e: 'back'): void }>();
 
       />
 
-      <h1>
+      <h1 class="header-title">
         {{headerTitle}}
       </h1>
 
@@ -92,8 +92,7 @@ const emit = defineEmits<{ (e: 'back'): void }>();
 
 .header-title {
 
-
-  font-size: 1.25rem;
+  font-size: 1rem;
 
   font-weight: 700;
 

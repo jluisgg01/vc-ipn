@@ -48,17 +48,20 @@ const handleSearch = () => {
 
 <style scoped>
 .filters-container {
-  padding: 16px;
+  padding: 12px 16px;
   background-color: #f8f9fa; /* Gris muy claro como en la imagen */
   display: flex;
   flex-direction: column;
   gap: 16px;
+  width: 100%; /* Asegura que ocupe todo el ancho */
+  box-sizing: border-box; /* Incluye el padding en el ancho total */
 }
 
 .search-input-group {
   position: relative;
   display: flex;
   align-items: center;
+  width: 100%; /* Asegura que el grupo ocupe todo el ancho */
 }
 
 .search-input-group input {
@@ -69,6 +72,7 @@ const handleSearch = () => {
   font-size: 14px;
   outline: none;
   box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  box-sizing: border-box; /* Importante para que el padding no desborde */
 }
 
 .search-icon {
@@ -81,12 +85,14 @@ const handleSearch = () => {
   display: flex;
   align-items: center;
   gap: 12px;
+  width: 100%; /* Asegura que la fila ocupe todo el ancho */
 }
 
 .label {
   font-size: 14px;
   color: #555;
   font-weight: 500;
+  white-space: nowrap; /* Evita que la etiqueta se rompa */
 }
 
 .quarter-selector {
@@ -99,11 +105,16 @@ const handleSearch = () => {
   border: 1px solid #efefef;
   flex-grow: 1;
   cursor: pointer;
+  width: 100%; /* Asegura que ocupe el espacio restante */
+  box-sizing: border-box;
 }
 
 .quarter-text {
   font-size: 13px;
   color: #666;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .quarter-text strong {
@@ -113,5 +124,6 @@ const handleSearch = () => {
 
 .arrow-down {
   color: #999;
+   flex-shrink: 0; /* Evita que la flecha se encoja */
 }
 </style>
