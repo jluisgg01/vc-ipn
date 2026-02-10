@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 
 // 1. Estado para el filtro seleccionado
 const filtroActivo = ref('Formatos Propios');
@@ -34,6 +34,15 @@ const datosCanales = {
 
 // 4. Propiedad computada para obtener los datos según el filtro
 const infoFiltrada = computed(() => datosCanales[filtroActivo.value]);
+
+// Emitir el filtro activo
+const emit = defineEmits(['update:filtroActivo']);
+
+// Observar cambios en filtroActivo y emitir el evento
+watch(filtroActivo, (newValue) => {
+  emit('update:filtroActivo', newValue);
+}, { immediate: true }); // Emitir el valor inicial inmediatamente
+
 </script>
 
 <template>

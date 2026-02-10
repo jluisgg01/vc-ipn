@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import HeaderNavigation from "./components/HeaderNavigation.vue";
 import Buscador from "./components/Buscador.vue";
 import ComponenteResumen from "./components/ComponenteResumen.vue";
@@ -17,6 +18,9 @@ const verbalizations = [
   "Volvería a comprar sin duda.",
   "El precio es un poco alto para lo que ofrece."
 ];
+
+// Estado compartido para el filtro de canales
+const canalSeleccionado = ref('Formatos Propios');
 </script>
 
 <template>
@@ -28,14 +32,19 @@ const verbalizations = [
       <router-view />
 
       <div class="cards-container">
-        <Canales />
+        <!-- Canales actualiza la variable canalSeleccionado -->
+        <Canales v-model:filtroActivo="canalSeleccionado" />
+
         <TacometroCard
             :percentage="55"
             :clients="300"
             :trendValue="0.2"
         />
         <ComponenteResumen :detractores="20" :pasivos="30" :promotores="40" />
-        <Ranking />
+
+        <!-- Ranking recibe la variable canalSeleccionado -->
+        <Ranking :canalSeleccionado="canalSeleccionado" />
+
         <VerbalizationsCard :items="verbalizations" />
       </div>
     </main>
