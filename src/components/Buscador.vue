@@ -48,13 +48,17 @@ const handleSearch = () => {
 
 <style scoped>
 .filters-container {
+  position: sticky; /* Se queda fijo al hacer scroll */
+  top: 59px; /* Ajusta este valor según la altura real de tu HeaderNavigation */
+  z-index: 999; /* Para que quede por encima del contenido pero debajo del header si es necesario */
   padding: 12px 16px;
   background-color: #f8f9fa; /* Gris muy claro como en la imagen */
   display: flex;
   flex-direction: column;
   gap: 16px;
-  width: 100%; /* Asegura que ocupe todo el ancho */
+  width: 100%; /* Ocupa todo el ancho disponible */
   box-sizing: border-box; /* Incluye el padding en el ancho total */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Misma sombra que HeaderNavigation */
 }
 
 .search-input-group {

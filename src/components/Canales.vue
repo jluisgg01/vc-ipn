@@ -67,7 +67,9 @@ watch(filtroActivo, (newValue) => {
           <p class="rango">{{ infoFiltrada.rango }}</p>
         </div>
         <div class="badge-container">
-          <span class="badge-q">{{ infoFiltrada.badge }}</span>
+          <span class="badge-q">
+            {{ infoFiltrada.badge }}
+          </span>
         </div>
       </div>
     </div>
@@ -77,8 +79,9 @@ watch(filtroActivo, (newValue) => {
 <style scoped>
 .canales-container {
   font-family: 'Segoe UI', Roboto, sans-serif;
-  max-width: 450px;
-  padding: 20px;
+  width: 100%; /* Ocupa todo el ancho disponible */
+  box-sizing: border-box; /* Incluye el padding en el ancho total */
+  padding: 12px 16px; /* Mismo padding que HeaderNavigation */
 }
 
 /* Estilos de los botones de filtro */
@@ -87,6 +90,8 @@ watch(filtroActivo, (newValue) => {
   gap: 10px;
   margin-bottom: 15px;
   justify-content: flex-start; /* Alineado a la izquierda */
+  overflow-x: auto; /* Permite scroll horizontal si los botones no caben */
+  padding-bottom: 5px; /* Espacio para el scrollbar si aparece */
 }
 
 .filtro-btn {
@@ -99,6 +104,7 @@ watch(filtroActivo, (newValue) => {
   font-size: 0.9rem;
   transition: all 0.3s ease;
   outline: none; /* Elimina el borde de foco predeterminado del navegador */
+  white-space: nowrap; /* Evita que el texto se rompa */
 }
 
 .filtro-btn:focus {
@@ -129,6 +135,9 @@ watch(filtroActivo, (newValue) => {
 
 .text-content {
   text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 0; /* Elimina el espacio entre elementos flex */
 }
 
 .titulo {
@@ -136,35 +145,42 @@ watch(filtroActivo, (newValue) => {
   font-size: 1.4rem;
   color: #333;
   font-weight: 700;
+  line-height: 1.2; /* Ajusta la altura de línea */
 }
 
 .periodo {
-  margin: 4px 0;
+  margin: 0; /* Elimina margen */
   color: #28a745; /* Verde de la imagen */
   font-weight: 600;
   font-size: 1.1rem;
+  line-height: 1.2;
 }
 
 .corte {
-  margin: 0;
+  margin: 0; /* Elimina margen */
   color: #888;
   font-size: 0.95rem;
+  line-height: 1.2;
 }
 
 .rango {
-  margin: 2px 0;
+  margin: 0; /* Elimina margen */
   color: #999;
   font-style: italic;
   font-size: 0.9rem;
+  line-height: 1.2;
 }
 
 /* Estilo del badge verde (Q1) */
 .badge-q {
   background-color: #34c749;
   color: white;
-  padding: 8px 20px;
-  border-radius: 8px 20px 8px 20px; /* Forma asimétrica similar a la imagen */
-  font-weight: bold;
-  font-size: 1rem;
+  padding: 4px 30px;
+  border-bottom-left-radius: 20px; /* Borde redondeado inferior izquierdo */
+  border-top-right-radius: 20px; /* Borde redondeado superior derecho */
+  border-top-left-radius: 0; /* Sin borde redondeado superior izquierdo */
+  border-bottom-right-radius: 0; /* Sin borde redondeado inferior derecho */
+  font-size: 20px; /* Tamaño de fuente ajustado */
+  font-weight: 600;
 }
 </style>

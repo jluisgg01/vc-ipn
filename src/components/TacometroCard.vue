@@ -8,14 +8,15 @@
     </div>
 
     <div class="gauge-wrapper">
-      <svg viewBox="0 0 200 120" class="gauge-svg">
-        <path d="M 30 100 A 70 70 0 0 1 170 100" fill="none" stroke="#e9ecef" stroke-width="12" stroke-linecap="round" />
+      <!-- Reduced viewBox height to remove bottom space -->
+      <svg viewBox="0 0 200 110" class="gauge-svg">
+        <path d="M 30 100 A 70 70 0 0 1 170 100" fill="none" stroke="#e9ecef" stroke-width="8" stroke-linecap="round" />
 
         <path
             d="M 30 100 A 70 70 0 0 1 170 100"
             fill="none"
             stroke="#00a65a"
-            stroke-width="12"
+            stroke-width="8"
             stroke-linecap="round"
             :style="{ strokeDasharray: strokeDash }"
         />
@@ -24,7 +25,7 @@
         <line v-for="n in 4" :key="n"
           x1="164" y1="100" x2="176" y2="100"
           stroke="white"
-          stroke-width="2"
+          stroke-width="1"
           :transform="`rotate(${180 + (n * 36)}, 100, 100)`"
         />
 
@@ -35,16 +36,15 @@
         />
         <circle cx="100" cy="100" r="4" fill="#adb5bd" />
       </svg>
-
-      <div class="range-labels">
-        <span>0%</span>
-        <span>100%</span>
-      </div>
     </div>
 
-    <div class="footer">
-      <div class="percentage-badge">{{ percentage }}%</div>
-      <div class="client-count">{{ clients }} Clientes</div>
+    <div class="gauge-footer">
+      <span class="limit-label">0%</span>
+      <div class="center-content">
+        <div class="percentage-badge">{{ percentage }}%</div>
+        <div class="client-count">{{ clients }} Clientes</div>
+      </div>
+      <span class="limit-label">100%</span>
     </div>
   </div>
 </template>
@@ -79,16 +79,19 @@ const strokeDash = computed(() => {
 .card-container {
   background: #fff;
   border-radius: 16px;
-  padding: 20px;
-  width: 320px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  padding: 12px 16px; /* Mismo padding que HeaderNavigation */
+  width: 100vw; /* Ocupa todo el ancho de la ventana */
+  margin-left: -16px; /* Compensa el padding del contenedor padre */
+  margin-right: -16px; /* Compensa el padding del contenedor padre */
+  box-sizing: border-box; /* Incluye el padding en el ancho total */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Sombra más oscura */
 }
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 0; /* Eliminado el margen inferior del header */
 }
 
 .title {
@@ -110,41 +113,52 @@ const strokeDash = computed(() => {
 .gauge-wrapper {
   position: relative;
   text-align: center;
+  line-height: 0; /* Elimina espacio extra debajo del SVG */
+  margin-top: -30px; /* Sube el tacómetro para acercarlo al título */
 }
 
 .gauge-svg {
   width: 100%;
   height: auto;
+  display: block;
 }
 
-.range-labels {
+.gauge-footer {
   display: flex;
   justify-content: space-between;
-  padding: 0 40px;
+  align-items: flex-start; /* Alinea los elementos arriba para que 0% y 100% coincidan con el número grande */
+  padding: 0 10%; /* Ajuste para alinear visualmente con los extremos del arco */
+  margin-top: -10px; /* Sube el footer para acercarlo al tacómetro */
+}
+
+.center-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.limit-label {
   color: #adb5bd;
   font-weight: bold;
   font-size: 14px;
-  margin-top: -15px;
-}
-
-.footer {
-  text-align: center;
-  margin-top: 10px;
+  margin-top: 8px; /* Ajuste fino para alinear verticalmente con el texto del porcentaje */
 }
 
 .percentage-badge {
   display: inline-block;
   background: #e8f5e9;
   color: #00a65a;
-  padding: 5px 15px;
+  padding: 2px 15px;
   border-radius: 8px;
   font-size: 1.4rem;
   font-weight: 800;
+  line-height: 1.2;
 }
 
 .client-count {
   color: #6c757d;
   font-size: 13px;
-  margin-top: 4px;
+  margin-top: 2px;
 }
 </style>

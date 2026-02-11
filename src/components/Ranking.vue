@@ -125,11 +125,6 @@ const rankingFinal = computed(() => {
 
             <div class="name-section">
               <span class="location-name">{{ item.nombre }}</span>
-              <div class="chevron-container" v-if="segmentacionActiva === 'Geografía'">
-                <svg class="chevron-down" :class="{ rotate: itemAbierto === item.id }" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                  <path d="m6 9 6 6 6-6"/>
-                </svg>
-              </div>
             </div>
 
             <div class="metrics-section">
@@ -143,6 +138,13 @@ const rankingFinal = computed(() => {
                   <div class="toggle-knob"></div>
                 </div>
               </template>
+            </div>
+
+            <!-- Chevron centrado abajo -->
+            <div class="chevron-container" v-if="segmentacionActiva === 'Geografía'">
+              <svg class="chevron-down" :class="{ rotate: itemAbierto === item.id }" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                <path d="m6 9 6 6 6-6"/>
+              </svg>
             </div>
           </div>
 
@@ -190,31 +192,92 @@ const rankingFinal = computed(() => {
 
 <style scoped>
 /* --- ESTILOS IGUALES AL ANTERIOR --- */
-.ranking-wrapper { font-family: 'Segoe UI', sans-serif; width: 100%; }
+.ranking-wrapper { font-family: 'Segoe UI', sans-serif; width: 100vw; margin-left: -16px; margin-right: -16px; box-sizing: border-box; padding: 12px 16px; /* Mismo padding que HeaderNavigation */ }
 .main-card { background: white; border-radius: 25px; padding: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.06); }
 .card-title { font-weight: 700; margin-bottom: 20px; font-size: 1.4rem; text-align: left; }
 
 .segment-pill-container { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; }
-.segment-pill { border: none; padding: 10px 30px; border-radius: 20px; background: #f0f2f8; color: #7a7e85; font-weight: 600; cursor: pointer; }
-.segment-pill.active { background: #e30613; color: white; }
+.segment-pill {
+  border: 1px solid transparent; /* Reserva espacio para el borde */
+  padding: 10px 30px;
+  border-radius: 20px;
+  background: #f0f2f8;
+  color: #7a7e85;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none; /* Quita el borde de foco por defecto */
+}
+.segment-pill.active {
+  background: #e30613;
+  color: white;
+  border-color: #e30613; /* Borde rojo al estar activo, igual que en Canales */
+}
 
-.ranking-item { display: flex; align-items: center; background: white; padding: 12px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); cursor: pointer; position: relative; z-index: 10; transition: all 0.3s ease; }
+.ranking-item {
+  display: flex;
+  align-items: center;
+  background: white;
+  padding: 12px 12px 32px 12px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  cursor: pointer;
+  position: relative; /* Necesario para el posicionamiento absoluto del badge y chevron */
+  z-index: 10;
+  transition: all 0.3s ease;
+  overflow: hidden; /* Asegura que el badge no se salga de los bordes redondeados */
+}
 .item-expanded { border-bottom-left-radius: 0; border-bottom-right-radius: 0; box-shadow: none; border: 1px solid #eee; border-bottom: none; }
 .no-cursor { cursor: default; }
 
-.rank-badge { width: 32px; height: 32px; border-radius: 6px 16px 6px 16px; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 15px; color: white; transition: 0.3s; flex-shrink: 0; }
+.rank-badge {
+  position: absolute; /* Posicionamiento absoluto */
+  top: 0;
+  left: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 15px 0 15px 0; /* Adaptado a la esquina superior izquierda */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: white;
+  transition: 0.3s;
+  flex-shrink: 0;
+  margin: 0; /* Eliminar margen */
+}
 .bg-green { background-color: #34c759; }
 .bg-gray { background-color: #bdc3c7; }
 
-.name-section { flex: 1; display: flex; align-items: center; gap: 10px; }
+.name-section {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  margin-left: 35px; /* Espacio para que el texto no quede debajo del badge */
+}
 .location-name { font-weight: 700; color: #444; font-size: 1.1rem; }
 
-.chevron-container { display: flex; align-items: center; justify-content: center; height: 100%; padding-top: 4px; }
+.chevron-container {
+  position: absolute;
+  bottom: 6px; /* Pegado al borde inferior */
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  pointer-events: none; /* Permite clicks en el item */
+}
 .chevron-down { width: 18px; color: #666; transition: 0.3s; display: block; }
 .chevron-down.rotate { transform: rotate(180deg); }
 
 .score-box { background: #eafaf1; color: #34c759; padding: 4px 12px; border-radius: 10px; font-weight: bold; font-size: 1.2rem; }
-.client-count { font-size: 0.8rem; color: #999; }
+
+.client-count {
+  position: absolute;
+  bottom: 8px; /* Alineado verticalmente con el chevron */
+  right: 12px; /* Alineado con el padding derecho */
+  font-size: 0.8rem;
+  color: #999;
+  white-space: nowrap;
+}
 
 .toggle-switch { width: 48px; height: 24px; border-radius: 20px; position: relative; cursor: pointer; transition: 0.3s; }
 .is-red { background: #e30613; }

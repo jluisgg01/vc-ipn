@@ -36,9 +36,12 @@ const summaryItems = computed(() => [
   display: flex;
   gap: 16px;
   background-color: #fff;
-  padding: 10px;
+  padding: 12px 16px; /* Mismo padding que HeaderNavigation */
   border-radius: 8px;
-  width: 100%;
+  width: 100vw; /* Ocupa todo el ancho de la ventana */
+  margin-left: -16px; /* Compensa el padding del contenedor padre */
+  margin-right: -16px; /* Compensa el padding del contenedor padre */
+  box-sizing: border-box; /* Incluye el padding en el ancho total */
 }
 
 .nps-card {

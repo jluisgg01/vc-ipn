@@ -72,11 +72,13 @@ const handleViewMore = () => {
   background-color: #ffffff;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  padding: 24px;
-  width: 100%;
-  max-width: 500px; /* Ancho máximo sugerido */
-  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  padding: 12px 16px;
+  width: 100vw;
+  margin-left: -16px;
+  margin-right: -16px;
+  box-sizing: border-box;
   color: #333;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
 /* Header */
@@ -163,13 +165,16 @@ const handleViewMore = () => {
 .btn-ver-mas {
   background-color: #E31C1C;
   color: white;
-  border: none;
+  border: 1px solid transparent; /* Reserva espacio para el borde */
   border-radius: 25px;
-  padding: 10px 32px;
+  padding: 10px 0; /* Padding horizontal 0 para usar width fijo */
+  width: 140px; /* Ancho fijo para mantener el tamaño */
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.2s;
+  outline: none; /* Quita el borde de foco por defecto */
+  text-align: center; /* Asegura que el texto esté centrado */
 }
 
 .btn-ver-mas:hover {
