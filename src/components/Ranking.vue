@@ -192,8 +192,17 @@ const rankingFinal = computed(() => {
 
 <style scoped>
 /* --- ESTILOS IGUALES AL ANTERIOR --- */
-.ranking-wrapper { font-family: 'Segoe UI', sans-serif; width: 100vw; margin-left: -16px; margin-right: -16px; box-sizing: border-box; padding: 12px 16px; /* Mismo padding que HeaderNavigation */ }
-.main-card { background: white; border-radius: 25px; padding: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.06); }
+.ranking-wrapper { width: 100%; }
+.main-card {
+  background: white;
+  border-radius: 25px;
+  padding: 20px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+  width: 100vw;
+  margin-left: -16px;
+  margin-right: -16px;
+  box-sizing: border-box;
+}
 .card-title { font-weight: 700; margin-bottom: 20px; font-size: 1.4rem; text-align: left; }
 
 .segment-pill-container { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; }
