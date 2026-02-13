@@ -6,16 +6,6 @@ import backIcon from '../assets/icons/ic_back_arrow.svg';
 
 const headerTitle = Str.headerName;
 
-interface Props {
-
-  title: string;
-
-}
-
-
-
-defineProps<Props>();
-
 const emit = defineEmits<{ (e: 'back'): void }>();
 
 </script>
