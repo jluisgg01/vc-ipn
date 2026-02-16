@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
+import type { ApiVerbalizacion } from '../types/ApiTypes';
 
 interface Props {
   /** La lista de comentarios/cadenas de texto */
-  items: string[];
+  items: ApiVerbalizacion[];
   /** El número total a mostrar en el badge (opcional). Si no se pasa, usa el largo de items */
   totalCount?: number;
 }
@@ -53,7 +54,10 @@ const handleViewMore = () => {
       >
         <div class="item-content">
           <span class="item-number">{{ index + 1 }}.</span>
-          <p class="item-text">"{{ item }}"</p>
+          <div class="text-wrapper">
+            <span class="item-origin">{{ item.cecodesc }}</span>
+            <p class="item-text">"{{ item.dato }}"</p>
+          </div>
         </div>
         <div v-if="index < visibleItems.length - 1" class="separator"></div>
       </div>
@@ -78,7 +82,7 @@ const handleViewMore = () => {
   margin-right: -16px;
   box-sizing: border-box;
   color: #333;
-  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
 }
 
 /* Header */
@@ -139,6 +143,19 @@ const handleViewMore = () => {
   font-weight: 600;
   color: #666;
   min-width: 20px; /* Asegura alineación si hay >9 items */
+}
+
+.text-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.item-origin {
+  font-size: 12px;
+  color: #666;
+  font-weight: 700;
+  margin-bottom: 2px;
 }
 
 .item-text {

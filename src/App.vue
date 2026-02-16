@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import HeaderNavigation from "./components/HeaderNavigation.vue";
 import Buscador from "./components/Buscador.vue";
 import ComponenteResumen from "./components/ComponenteResumen.vue";
@@ -8,19 +8,41 @@ import VerbalizationsCard from "./components/VerbalizationsCard.vue";
 import Footer from "./components/Footer.vue";
 import Canales from "./components/Canales.vue";
 import Ranking from "./components/Ranking.vue";
-
-const verbalizations = [
-  "El servicio fue excelente y muy rápido.",
-  "No me gustó la atención recibida por el soporte.",
-  "La aplicación es fácil de usar.",
-  "Deberían mejorar los tiempos de respuesta.",
-  "Muy satisfecho con la compra.",
-  "Volvería a comprar sin duda.",
-  "El precio es un poco alto para lo que ofrece."
-];
+import type { ApiTacometroResponse, ApiVerbalizacion } from './types/ApiTypes';
 
 // Estado compartido para el filtro de canales
 const canalSeleccionado = ref('Formatos Propios');
+
+// Estado para los datos del dashboard (Tacómetro y NPS)
+const dashboardData = ref<ApiTacometroResponse | null>(null);
+
+// Estado para las verbalizaciones
+const verbalizations = ref<ApiVerbalizacion[]>([]);
+
+// Simulación de carga de datos
+onMounted(() => {
+  // Simular respuesta de API Tacómetro
+  dashboardData.value = {
+    nivel: "PDV",
+    tendencia: 0.2,
+    califTaco: 55,
+    promotores: 40, // Ajustado para coincidir con tu ejemplo visual anterior
+    detractores: 20,
+    pasivos: 30,
+    totalclientes: 300
+  };
+
+  // Simular respuesta de API Verbalizaciones
+  verbalizations.value = [
+    { dato: "El servicio fue excelente y muy rápido.", cecodesc: "Sucursal Centro" },
+    { dato: "No me gustó la atención recibida por el soporte.", cecodesc: "Call Center" },
+    { dato: "La aplicación es fácil de usar.", cecodesc: "App Móvil" },
+    { dato: "Deberían mejorar los tiempos de respuesta.", cecodesc: "Sucursal Norte" },
+    { dato: "Muy satisfecho con la compra.", cecodesc: "Tienda Online" },
+    { dato: "Volvería a comprar sin duda.", cecodesc: "Sucursal Sur" },
+    { dato: "El precio es un poco alto para lo que ofrece.", cecodesc: "Kiosco" }
+  ];
+});
 </script>
 
 <template>
@@ -35,16 +57,26 @@ const canalSeleccionado = ref('Formatos Propios');
         <!-- Canales actualiza la variable canalSeleccionado -->
         <Canales v-model:filtroActivo="canalSeleccionado" />
 
+        <!-- Pasamos los datos al Tacómetro si existen -->
         <TacometroCard
-            :percentage="55"
-            :clients="300"
-            :trendValue="0.2"
+            v-if="dashboardData"
+            :percentage="dashboardData.califTaco"
+            :clients="dashboardData.totalclientes"
+            :trendValue="dashboardData.tendencia"
         />
-        <ComponenteResumen :detractores="20" :pasivos="30" :promotores="40" />
+
+        <!-- Pasamos los datos al Resumen NPS si existen -->
+        <ComponenteResumen
+            v-if="dashboardData"
+            :detractores="dashboardData.detractores"
+            :pasivos="dashboardData.pasivos"
+            :promotores="dashboardData.promotores"
+        />
 
         <!-- Ranking recibe la variable canalSeleccionado -->
         <Ranking :canalSeleccionado="canalSeleccionado" />
 
+        <!-- VerbalizationsCard ahora recibe objetos ApiVerbalizacion -->
         <VerbalizationsCard :items="verbalizations" />
       </div>
     </main>

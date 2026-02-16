@@ -198,7 +198,7 @@ const rankingFinal = computed(() => {
   margin-left: -16px;
   margin-right: -16px;
   box-sizing: border-box;
-  /* El padding se maneja dentro de main-card o aquí si fuera necesario, pero main-card es la tarjeta */
+  padding: 12px 16px; /* Mismo padding que HeaderNavigation */
 }
 
 .main-card {
